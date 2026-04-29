@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Now Playing</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="display-body idle">
+    <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+    <section class="announcement-overlay" id="announcementOverlay" aria-live="assertive" hidden>
+      <div class="announcement-panel" id="announcementPanel">
+        <div class="announcement-kicker" id="announcementKicker">매장 공지</div>
+        <h2 id="announcementTitle">공지</h2>
+        <p id="announcementMessage"></p>
+        <div class="announcement-timer" id="announcementTimer"></div>
+      </div>
+    </section>
+
+    <section class="game-event-display" id="gameEventDisplay" aria-live="polite" hidden>
+      <div class="game-event-card">
+        <div class="game-event-head">
+          <span class="game-event-kicker" id="gameEventKicker">사장님 이벤트</span>
+          <span class="game-event-count" id="gameEventCount">참여 0명</span>
+        </div>
+        <h2 id="gameEventTitle">이벤트</h2>
+        <p id="gameEventMessage"></p>
+        <div class="game-event-prize" id="gameEventPrize"></div>
+        <div class="game-event-result" id="gameEventResult" hidden></div>
+        <div class="game-event-winner" id="gameEventWinner" hidden></div>
+        <div class="game-event-foot">
+          <span>QR 페이지에서 참여</span>
+          <img src="/api/qr.svg" alt="신청 페이지 QR" />
+        </div>
+      </div>
+    </section>
+
+    <div class="unlock" id="unlock">
+      <div class="unlock-box">
+        <h2>디스플레이 시작</h2>
+        <p class="subcopy">브라우저 정책 때문에 처음 한 번은 화면을 눌러야 YouTube 소리가 재생됩니다.</p>
+        <button class="btn primary" id="startDisplay" type="button">시작하기</button>
+      </div>
+    </div>
+
+    <main class="display-stage">
+      <section class="player-frame" aria-label="YouTube player">
+        <div id="player"></div>
+      </section>
+
+      <section class="display-info">
+        <div class="now-label" id="nowLabel">Now Playing</div>
+        <div class="theme-banner" id="themeBanner"></div>
+        <h1 class="display-title" id="displayTitle">신청곡을 기다리는 중</h1>
+        <p class="display-artist" id="displayArtist">QR로 노래와 사연을 남겨주세요</p>
+        <div class="story" id="displayStory"></div>
+
+        <footer class="display-footer">
+          <div class="next-list" id="nextList"></div>
+          <div class="display-qr">
+            <img src="/api/qr.svg" alt="신청 페이지 QR" />
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="/display.js"></script>
+  </body>
+</html>
