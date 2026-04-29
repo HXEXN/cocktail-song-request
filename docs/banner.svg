@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Cocktail Song Request</title>
+  <desc id="desc">A product banner showing a QR song request system, admin queue, live display, and event game overlays.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#101820"/>
+      <stop offset="0.48" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#d89d2b"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" x2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#eefaf8" stop-opacity="0.94"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1280" height="640" fill="#05080c" opacity="0.32"/>
+  <g fill="#ffffff" opacity="0.18">
+    <rect x="76" y="92" width="12" height="36" rx="4" transform="rotate(-28 82 110)"/>
+    <rect x="1090" y="102" width="12" height="42" rx="4" transform="rotate(18 1096 123)"/>
+    <rect x="1004" y="492" width="12" height="34" rx="4" transform="rotate(-14 1010 509)"/>
+    <rect x="224" y="506" width="12" height="30" rx="4" transform="rotate(22 230 521)"/>
+    <rect x="596" y="74" width="12" height="28" rx="4" transform="rotate(12 602 88)"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="70" y="86" width="1140" height="468" rx="26" fill="#071014" opacity="0.9"/>
+    <rect x="100" y="116" width="500" height="408" rx="18" fill="url(#panel)"/>
+    <rect x="638" y="116" width="472" height="248" rx="18" fill="#05080c"/>
+    <rect x="638" y="388" width="472" height="136" rx="18" fill="#ffffff" opacity="0.92"/>
+  </g>
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <text x="130" y="178" fill="#0b5f59" font-size="22" font-weight="900" letter-spacing="2">QR SONG REQUEST</text>
+    <text x="130" y="232" fill="#101820" font-size="56" font-weight="950">Cocktail Song</text>
+    <text x="130" y="292" fill="#101820" font-size="56" font-weight="950">Request</text>
+    <text x="130" y="342" fill="#475569" font-size="24" font-weight="650">YouTube queue, venue themes,</text>
+    <text x="130" y="374" fill="#475569" font-size="24" font-weight="650">notices, and live event games.</text>
+    <rect x="130" y="420" width="148" height="48" rx="12" fill="#0f766e"/>
+    <text x="158" y="452" fill="#ffffff" font-size="18" font-weight="900">Guest QR</text>
+    <rect x="294" y="420" width="138" height="48" rx="12" fill="#e7edf3"/>
+    <text x="324" y="452" fill="#101820" font-size="18" font-weight="900">Admin</text>
+    <rect x="448" y="420" width="112" height="48" rx="12" fill="#fef3c7"/>
+    <text x="474" y="452" fill="#713f12" font-size="18" font-weight="900">Live</text>
+    <text x="674" y="174" fill="#f4c86b" font-size="24" font-weight="950">NOW PLAYING</text>
+    <text x="674" y="238" fill="#ffffff" font-size="48" font-weight="950">Birthday Remix</text>
+    <text x="674" y="290" fill="#dbeafe" font-size="30" font-weight="800">with guest story</text>
+    <rect x="674" y="412" width="116" height="80" rx="14" fill="#ffffff"/>
+    <g fill="#101820">
+      <rect x="690" y="428" width="14" height="14"/>
+      <rect x="718" y="428" width="14" height="14"/>
+      <rect x="746" y="428" width="14" height="14"/>
+      <rect x="690" y="456" width="14" height="14"/>
+      <rect x="732" y="456" width="14" height="14"/>
+      <rect x="760" y="456" width="14" height="14"/>
+      <rect x="704" y="470" width="14" height="14"/>
+      <rect x="746" y="470" width="14" height="14"/>
+    </g>
+    <text x="814" y="432" fill="#101820" font-size="24" font-weight="950">Event overlay</text>
+    <text x="814" y="468" fill="#475569" font-size="20" font-weight="750">Rock-paper-scissors, quiz,</text>
+    <text x="814" y="496" fill="#475569" font-size="20" font-weight="750">draws, and table battles</text>
+  </g>
+</svg>
