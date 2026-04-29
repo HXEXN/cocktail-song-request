@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>신청곡 접수</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">Cocktail Request</p>
+          <h1>오늘 들을 노래를 신청하세요</h1>
+          <p class="subcopy">YouTube 링크를 함께 넣으면 직원 승인 후 매장 화면에 자동으로 연결됩니다.</p>
+        </div>
+      </section>
+
+      <section class="grid request-grid">
+        <form class="panel stack" id="requestForm">
+          <div class="search-panel">
+            <div class="field">
+              <label for="songSearch">노래 검색</label>
+              <div class="search-line">
+                <input id="songSearch" autocomplete="off" placeholder="곡 제목이나 가수를 검색" />
+                <button class="btn" id="songSearchButton" type="button">검색</button>
+              </div>
+            </div>
+            <div class="search-results" id="searchResults" hidden></div>
+          </div>
+
+          <div class="inline-fields">
+            <div class="field">
+              <label for="title">곡 제목</label>
+              <input id="title" name="title" autocomplete="off" required placeholder="예: Ditto" />
+            </div>
+            <div class="field">
+              <label for="artist">아티스트</label>
+              <input id="artist" name="artist" autocomplete="off" placeholder="예: NewJeans" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="youtubeUrl">YouTube 링크 또는 영상 ID</label>
+            <input id="youtubeUrl" name="youtubeUrl" inputmode="url" required placeholder="https://youtu.be/..." />
+            <div class="hint">검색 결과를 선택하면 자동 입력됩니다. 직접 붙여넣어도 됩니다.</div>
+          </div>
+
+          <div class="field">
+            <label for="requester">신청자</label>
+            <input id="requester" name="requester" autocomplete="nickname" placeholder="닉네임 또는 테이블 번호" />
+          </div>
+
+          <div class="theme-section" aria-labelledby="themeHeading">
+            <div class="section-head">
+              <div>
+                <label id="themeHeading" for="theme">화면 테마</label>
+                <p class="hint">빔프로젝터에 나올 분위기와 환영 문구를 고릅니다.</p>
+              </div>
+              <span class="theme-selected" id="themeSelected">일반 신청곡</span>
+            </div>
+
+            <input id="theme" name="theme" type="hidden" value="normal" />
+            <div class="theme-picker" id="themePicker" role="radiogroup" aria-labelledby="themeHeading">
+              <button class="theme-option active" type="button" data-theme="normal" aria-pressed="true">
+                <span class="theme-swatch swatch-normal"></span>
+                <span>
+                  <span class="theme-option-title">일반 신청곡</span>
+                  <span class="theme-option-copy">곡과 사연 중심</span>
+                </span>
+              </button>
+              <button class="theme-option" type="button" data-theme="birthday" aria-pressed="false">
+                <span class="theme-swatch swatch-birthday"></span>
+                <span>
+                  <span class="theme-option-title">생일 축하</span>
+                  <span class="theme-option-copy">축하 문구와 컨페티</span>
+                </span>
+              </button>
+              <button class="theme-option" type="button" data-theme="club" aria-pressed="false">
+                <span class="theme-swatch swatch-club"></span>
+                <span>
+                  <span class="theme-option-title">동아리/모임 환영</span>
+                  <span class="theme-option-copy">단체 방문에 적합</span>
+                </span>
+              </button>
+              <button class="theme-option" type="button" data-theme="department" aria-pressed="false">
+                <span class="theme-swatch swatch-department"></span>
+                <span>
+                  <span class="theme-option-title">학과/과모임 환영</span>
+                  <span class="theme-option-copy">과 행사 분위기</span>
+                </span>
+              </button>
+              <button class="theme-option" type="button" data-theme="freshman" aria-pressed="false">
+                <span class="theme-swatch swatch-freshman"></span>
+                <span>
+                  <span class="theme-option-title">새내기 환영</span>
+                  <span class="theme-option-copy">밝고 활기찬 화면</span>
+                </span>
+              </button>
+              <button class="theme-option" type="button" data-theme="exam" aria-pressed="false">
+                <span class="theme-swatch swatch-exam"></span>
+                <span>
+                  <span class="theme-option-title">시험 끝 축하</span>
+                  <span class="theme-option-copy">수고했다는 메시지</span>
+                </span>
+              </button>
+              <button class="theme-option" type="button" data-theme="couple" aria-pressed="false">
+                <span class="theme-swatch swatch-couple"></span>
+                <span>
+                  <span class="theme-option-title">커플/기념일</span>
+                  <span class="theme-option-copy">기념일 축하 화면</span>
+                </span>
+              </button>
+              <button class="theme-option" type="button" data-theme="farewell" aria-pressed="false">
+                <span class="theme-swatch swatch-farewell"></span>
+                <span>
+                  <span class="theme-option-title">송별/졸업</span>
+                  <span class="theme-option-copy">차분한 응원 분위기</span>
+                </span>
+              </button>
+              <button class="theme-option" type="button" data-theme="custom" aria-pressed="false">
+                <span class="theme-swatch swatch-custom"></span>
+                <span>
+                  <span class="theme-option-title">직접 입력 테마</span>
+                  <span class="theme-option-copy">오늘만의 문구</span>
+                </span>
+              </button>
+            </div>
+
+            <div class="field" id="themeNameField" hidden>
+              <label for="themeName" id="themeNameLabel">주인공 이름</label>
+              <input id="themeName" name="themeName" autocomplete="off" placeholder="예: 사진동아리" />
+            </div>
+
+            <div class="theme-preview theme-preview-normal" id="themePreview" aria-live="polite">
+              <span class="preview-label" id="themePreviewLabel">디스플레이 미리보기</span>
+              <strong id="themePreviewTitle">지금 재생 중</strong>
+              <span id="themePreviewCopy">곡 제목과 사연이 가장 크게 보입니다.</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="message">사연</label>
+            <textarea id="message" name="message" maxlength="360" placeholder="화면에 함께 띄울 짧은 사연"></textarea>
+            <div class="hint"><span id="messageCount">0</span>/360</div>
+          </div>
+
+          <button class="btn primary" type="submit">신청하기</button>
+          <div class="notice" id="notice"></div>
+        </form>
+
+        <aside class="panel stack">
+          <h2>신청 전 확인</h2>
+          <p class="subcopy">신청곡은 직원 확인 후 재생됩니다. 부적절한 문구, 개인정보, 중복 신청은 매장에서 수정하거나 제외할 수 있습니다.</p>
+
+          <div class="event-join-card" id="eventJoinCard">
+            <span class="status-pill">이벤트</span>
+            <strong id="eventJoinTitle">진행 중인 이벤트 없음</strong>
+            <p class="subcopy" id="eventJoinMessage">이벤트가 열리면 여기에서 참여할 수 있습니다.</p>
+            <form class="stack" id="eventJoinForm" hidden>
+              <div class="field">
+                <label for="eventNickname">닉네임</label>
+                <input id="eventNickname" name="nickname" autocomplete="nickname" placeholder="예: 민지" />
+              </div>
+              <div class="field">
+                <label for="eventTableName">테이블/팀</label>
+                <input id="eventTableName" name="tableName" autocomplete="off" placeholder="예: 3번 테이블" />
+              </div>
+              <div class="field game-field" id="eventChoiceField" hidden>
+                <label for="eventChoice">가위바위보 선택</label>
+                <select id="eventChoice" name="choice">
+                  <option value="">선택</option>
+                  <option value="rock">바위</option>
+                  <option value="scissors">가위</option>
+                  <option value="paper">보</option>
+                </select>
+              </div>
+              <div class="field game-field" id="eventAnswerField" hidden>
+                <label for="eventAnswer">퀴즈 정답</label>
+                <input id="eventAnswer" name="answer" autocomplete="off" maxlength="120" placeholder="정답 입력" />
+              </div>
+              <div class="field">
+                <label for="eventNote">한마디</label>
+                <input id="eventNote" name="note" autocomplete="off" maxlength="100" placeholder="선택 입력" />
+              </div>
+              <button class="btn primary" type="submit">이벤트 참여</button>
+              <div class="notice" id="eventJoinNotice"></div>
+            </form>
+            <div class="event-join-meta" id="eventJoinMeta"></div>
+          </div>
+
+          <div class="empty" id="queuePreview">현재 대기열을 불러오는 중입니다.</div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="/request.js"></script>
+  </body>
+</html>
