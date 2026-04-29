@@ -1,0 +1,27 @@
+{
+  "name": "cocktail-song-request",
+  "version": "1.0.0",
+  "description": "QR song request, live YouTube display, announcements, and event games for bars and campus parties.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js public/request.js public/admin.js public/display.js"
+  },
+  "keywords": [
+    "song-request",
+    "qr",
+    "youtube",
+    "bar",
+    "karaoke",
+    "events",
+    "college",
+    "display"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
