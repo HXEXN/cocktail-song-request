@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>신청곡 관리자</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">Request Admin</p>
+          <h1 class="admin-title">신청곡 관리</h1>
+          <p class="subcopy">승인한 곡은 대기열에 들어가고, 바로 재생을 누르면 디스플레이의 YouTube 플레이어가 전환됩니다.</p>
+        </div>
+        <div class="actions">
+          <a class="btn ghost" href="/display" target="_blank" rel="noreferrer">디스플레이 열기</a>
+          <a class="btn ghost" href="/request" target="_blank" rel="noreferrer">신청 페이지</a>
+        </div>
+      </section>
+
+      <section class="grid admin-grid">
+        <aside class="stack">
+          <div class="current-strip">
+            <span class="status-pill playing">현재 재생</span>
+            <strong id="currentTitle">대기 중</strong>
+            <span class="song-meta" id="currentMeta">재생 중인 신청곡이 없습니다.</span>
+            <div class="actions">
+              <button class="btn primary small" id="nextButton" type="button">다음 곡</button>
+              <button class="btn ghost small" id="clearButton" type="button">현재 곡 종료</button>
+            </div>
+          </div>
+
+          <div class="qr-box">
+            <img src="/api/qr.svg" alt="신청 페이지 QR" />
+            <strong>테이블용 QR</strong>
+            <p class="qr-url" id="requestUrl"></p>
+          </div>
+
+          <form class="panel stack" id="announcementForm">
+            <h2>바로 공지</h2>
+            <div class="field">
+              <label for="announcementType">공지 종류</label>
+              <select id="announcementType" name="type">
+                <option value="notice">일반 공지</option>
+                <option value="kitchen">주방 안내</option>
+                <option value="warning">긴급 안내</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="announcementTitle">제목</label>
+              <input id="announcementTitle" name="title" value="매장 공지" />
+            </div>
+            <div class="field">
+              <label for="announcementMessage">화면 문구</label>
+              <textarea id="announcementMessage" name="message" maxlength="520" placeholder="빔프로젝터에 바로 띄울 공지"></textarea>
+            </div>
+            <div class="inline-fields">
+              <div class="field">
+                <label for="announcementDuration">표시 시간</label>
+                <input id="announcementDuration" name="durationSeconds" type="number" min="10" max="600" step="5" value="75" />
+              </div>
+              <label class="switch-row" for="announcementVoice">
+                <input id="announcementVoice" name="voiceEnabled" type="checkbox" checked />
+                <span>음성 안내</span>
+              </label>
+            </div>
+            <div class="actions">
+              <button class="btn primary" type="submit">바로 띄우기</button>
+              <button class="btn ghost" id="clearAnnouncementButton" type="button">공지 내리기</button>
+            </div>
+            <div class="notice" id="announcementNotice"></div>
+          </form>
+
+          <form class="panel stack" id="kitchenCloseForm">
+            <h2>주방 마감 자동 안내</h2>
+            <label class="switch-row" for="kitchenCloseEnabled">
+              <input id="kitchenCloseEnabled" name="enabled" type="checkbox" checked />
+              <span>매일 자동 안내</span>
+            </label>
+            <div class="field">
+              <label for="kitchenCloseTime">안내 시간</label>
+              <input id="kitchenCloseTime" name="time" type="time" value="00:00" />
+            </div>
+            <div class="field">
+              <label for="kitchenCloseTitle">제목</label>
+              <input id="kitchenCloseTitle" name="title" value="주방 마감 안내" />
+            </div>
+            <div class="field">
+              <label for="kitchenCloseMessage">안내 문구</label>
+              <textarea id="kitchenCloseMessage" name="message" maxlength="520"></textarea>
+            </div>
+            <div class="inline-fields">
+              <div class="field">
+                <label for="kitchenCloseDuration">표시 시간</label>
+                <input id="kitchenCloseDuration" name="durationSeconds" type="number" min="10" max="600" step="5" value="90" />
+              </div>
+              <label class="switch-row" for="kitchenCloseVoice">
+                <input id="kitchenCloseVoice" name="voiceEnabled" type="checkbox" checked />
+                <span>음성 안내</span>
+              </label>
+            </div>
+            <div class="actions">
+              <button class="btn primary" type="submit">설정 저장</button>
+              <button class="btn" id="testKitchenCloseButton" type="button">지금 테스트</button>
+            </div>
+            <div class="notice" id="kitchenCloseNotice"></div>
+          </form>
+
+          <form class="panel stack" id="gameEventForm">
+            <h2>사장님 게임 이벤트</h2>
+            <div class="field">
+              <label for="gameEventType">이벤트 종류</label>
+              <select id="gameEventType" name="type">
+                <option value="boss">사장님과 게임</option>
+                <option value="draw">랜덤 추첨</option>
+                <option value="quiz">즉석 퀴즈</option>
+                <option value="table">테이블 대항</option>
+                <option value="custom">직접 입력</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="gameEventTitle">이벤트 제목</label>
+              <input id="gameEventTitle" name="title" value="사장님과 게임 이벤트" />
+            </div>
+            <div class="field">
+              <label for="gameEventMessage">안내 문구</label>
+              <textarea id="gameEventMessage" name="message" maxlength="520">QR 페이지에서 닉네임과 테이블을 입력하고 참여하세요.</textarea>
+            </div>
+            <div class="field">
+              <label for="gameEventPrize">상품/혜택</label>
+              <input id="gameEventPrize" name="prize" placeholder="예: 칵테일 1잔 서비스" />
+            </div>
+            <div class="field game-field" id="gameEventQuestionField" hidden>
+              <label for="gameEventQuestion">퀴즈 문제</label>
+              <textarea id="gameEventQuestion" name="question" maxlength="520" placeholder="예: 오늘 사장님이 추천하는 칵테일 이름은?"></textarea>
+            </div>
+            <div class="field game-field" id="gameEventAnswerField" hidden>
+              <label for="gameEventAnswer">퀴즈 정답</label>
+              <input id="gameEventAnswer" name="answer" maxlength="120" placeholder="예: 모히또" />
+            </div>
+            <label class="switch-row" for="gameEventJoinOpen">
+              <input id="gameEventJoinOpen" name="joinOpen" type="checkbox" checked />
+              <span>손님 참여 받기</span>
+            </label>
+            <div class="actions">
+              <button class="btn primary" type="submit">이벤트 시작</button>
+            </div>
+            <div class="notice" id="gameEventNotice"></div>
+          </form>
+
+          <div class="panel stack" id="activeGameEventPanel">
+            <h2>진행 중 이벤트</h2>
+            <div class="event-admin-card" id="activeGameEventCard">진행 중인 이벤트가 없습니다.</div>
+            <div class="game-resolve-controls" id="gameResolveControls" hidden>
+              <label for="bossChoice">사장님 선택</label>
+              <select id="bossChoice">
+                <option value="rock">바위</option>
+                <option value="scissors">가위</option>
+                <option value="paper">보</option>
+              </select>
+              <button class="btn primary" id="resolveGameEventButton" type="button">게임 결과 발표</button>
+            </div>
+            <div class="actions">
+              <button class="btn primary" id="drawGameWinnerButton" type="button">랜덤 추첨</button>
+              <button class="btn" id="reopenGameEventButton" type="button">참여 다시 열기</button>
+              <button class="btn danger" id="closeGameEventButton" type="button">이벤트 종료</button>
+            </div>
+          </div>
+
+          <form class="panel stack" id="manualForm">
+            <h2>직접 추가</h2>
+            <div class="field">
+              <label for="manualTitle">곡 제목</label>
+              <input id="manualTitle" name="title" required />
+            </div>
+            <div class="field">
+              <label for="manualArtist">아티스트</label>
+              <input id="manualArtist" name="artist" />
+            </div>
+            <div class="field">
+              <label for="manualYoutubeUrl">YouTube 링크</label>
+              <input id="manualYoutubeUrl" name="youtubeUrl" required />
+            </div>
+            <div class="field">
+              <label for="manualRequester">신청자</label>
+              <input id="manualRequester" name="requester" placeholder="직원 입력" />
+            </div>
+            <div class="field">
+              <label for="manualTheme">화면 테마</label>
+              <select id="manualTheme" name="theme">
+                <option value="normal">일반 신청곡</option>
+                <option value="birthday">생일 축하</option>
+                <option value="club">동아리/모임 환영</option>
+                <option value="department">학과/과모임 환영</option>
+                <option value="freshman">새내기 환영</option>
+                <option value="exam">시험 끝 축하</option>
+                <option value="couple">커플/기념일</option>
+                <option value="farewell">송별/졸업</option>
+                <option value="custom">직접 입력 테마</option>
+              </select>
+            </div>
+            <div class="field" id="manualThemeNameField" hidden>
+              <label for="manualThemeName" id="manualThemeNameLabel">주인공 이름</label>
+              <input id="manualThemeName" name="themeName" />
+            </div>
+            <div class="field">
+              <label for="manualMessage">사연</label>
+              <textarea id="manualMessage" name="message"></textarea>
+            </div>
+            <button class="btn primary" type="submit">추가하기</button>
+            <div class="notice" id="manualNotice"></div>
+          </form>
+        </aside>
+
+        <section class="panel">
+          <div class="tabs" role="tablist">
+            <button class="tab active" type="button" data-tab="pending">승인 대기 <span id="pendingCount">0</span></button>
+            <button class="tab" type="button" data-tab="queue">대기열 <span id="queueCount">0</span></button>
+            <button class="tab" type="button" data-tab="played">재생 기록</button>
+            <button class="tab" type="button" data-tab="rejected">거절</button>
+          </div>
+          <div class="song-list" id="songList"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/admin.js"></script>
+  </body>
+</html>
